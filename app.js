@@ -1,8 +1,10 @@
+//Placer l'application express
 const express = require('express')
-//const mongoose = require('mongoose');
+
 //Importation mongoose
 const mongoose = require('./db-Connect');
 
+//Créer l'application Express
 const app = express();
 //const path = require ('path'); // Module apportant des méthodes pour retourner des URL
 
@@ -10,6 +12,11 @@ const userRoutes = require('./routes/user-routes');
 
 //dotenv.config();
 //dbConnect(); /onnexion à la base de données
+
+//Configurer une réponse simple pour s'assurer que tout fonctionne correctement
+app.use((req, res) => {
+    res.json({ message: 'Votre requête a bien été reçue' });
+});
 
 //Middleware généraux
 app.use(express.json()); // Middleware parsant la requête en objet JS
