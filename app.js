@@ -10,11 +10,8 @@ const app = express();
 
 const userRoutes = require('./routes/user-routes');
 
-//dotenv.config();
-//dbConnect(); /onnexion à la base de données
-
 //Configurer une réponse simple pour s'assurer que tout fonctionne correctement
-app.use((req, res) => {
+app.use((req, res, next) => {
     res.json({ message: 'Votre requête a bien été reçue' });
 });
 
