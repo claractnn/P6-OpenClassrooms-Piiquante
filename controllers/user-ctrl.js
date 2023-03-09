@@ -23,7 +23,7 @@ exports.signup = (req, res) => {
                     console.log(error);
                 })
         })
-        .catch(error => res.status(500).json({ error })); // ERREUR ICI
+        .catch(error => res.status(500).json({ error }));
 };
 
 //Se connecter à son compte utilisateur

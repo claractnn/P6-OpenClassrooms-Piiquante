@@ -1,7 +1,10 @@
+//Importer le package HTTP natif de Node
 const http = require('http');
+
+//Éxécuter l'application Express sur le serveur node
 const app = require('./app');
 
-// Renvoie la valeur du port ou le boléen false.
+//Renvoyer la valeur du port ou le boléen false
 const normalizePort = val => {
     const port = parseInt(val, 10);
 
@@ -17,7 +20,7 @@ const normalizePort = val => {
 const port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 
-// Log les messages d'exceptions lors du démarrage serveur
+//Messages d'exception lors du démarrage serveur
 const errorHandler = error => {
     if (error.syscall !== 'listen') {
         throw error;
@@ -36,7 +39,9 @@ const errorHandler = error => {
     }
 };
 
-const server = http.createServer(app); // Les requests/responses seront traitée dans app.js
+//Créer un serveur en passant une fonction avec pour objets requête et réponse en tant qu'arguments
+//Les requests/responses seront traitées dans app.js
+const server = http.createServer(app); 
 
 server.on('error', errorHandler);
 server.on('listening', () => {
@@ -45,4 +50,5 @@ server.on('listening', () => {
     console.log('Listening on ' + bind);
 });
 
+//Configurer le serveur pour qu'il écoute la variable d'environnement du port par défaut, soit le port 3000
 server.listen(port);

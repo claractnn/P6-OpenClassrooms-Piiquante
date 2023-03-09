@@ -11,9 +11,9 @@ const app = express();
 const userRoutes = require('./routes/user-routes');
 
 //Configurer une réponse simple pour s'assurer que tout fonctionne correctement
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
     res.json({ message: 'Votre requête a bien été reçue' });
-});
+});*/
 
 //Middleware généraux
 app.use(express.json()); // Middleware parsant la requête en objet JS
