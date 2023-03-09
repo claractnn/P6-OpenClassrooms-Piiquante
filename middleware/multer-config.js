@@ -11,7 +11,7 @@ const MIME_TYPES = {
 //Crée un objet de configuration pour multer
 const storage = multer.diskStorage({ //Utiliser fonction diskStorage pour l'enregistrer sur le disque
     destination: (req, file, callback) => {
-        callback(null, 'images')
+        callback(null, 'images');
     },
     filename: (req, file, callback) => {
         const name = file.originalname.split(' ').join('_');
@@ -20,4 +20,4 @@ const storage = multer.diskStorage({ //Utiliser fonction diskStorage pour l'enre
     }
 });
 
-module.exports = multer({ storage }), single('image');
+module.exports = multer({storage: storage}).single('image');

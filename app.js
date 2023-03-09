@@ -6,9 +6,10 @@ const mongoose = require('./db-Connect');
 
 //Créer l'application Express
 const app = express();
-const path = require ('path'); // Module apportant des méthodes pour retourner des URL
+const path = require('path'); // Module apportant des méthodes pour retourner des URL
 
 const userRoutes = require('./routes/user-routes');
+const sauceRoutes = require('./routes/sauce-routes');
 
 //Configurer une réponse simple pour s'assurer que tout fonctionne correctement
 /*app.use((req, res, next) => {
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 
 //Routes de l'API
 app.use('/api/auth', userRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
