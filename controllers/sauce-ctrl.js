@@ -4,13 +4,15 @@ const Sauce = require('../models/Sauce');
 //Importer package filesystem de Node
 const fs = require('fs');
 
-//Récupérer toutes les sauces 
+//Afficher toutes les sauces 
 exports.getAllSauces = (req, res) => {
+    //Récupérer le tableau de toutes les sauces retournées pas la base de données
     Sauce.find()
-    .then(sauces => res.status(200).json(sauces))
-    .catch(error => res.satuts(400).json({ error }));
+        .then(sauces => res.status(200).json(sauces))
+        .catch(error => res.satuts(400).json({ error }));
 };
 
+//Afficher une seule sauce
 exports.getOneSauce = (req, res) => {
     Sauce.findOne({ _id: req.params.id })
         .then(sauce => res.status(200).json(sauce))
@@ -39,8 +41,8 @@ exports.createSauce = (req, res, next) => {
     });
     //Enregistrer l'objet dans la base de données
     sauce.save()
-    .then(() => res.status(201).json({ message: 'Votre sauce a bien été enregistrée !'}))
-    .catch(error => res.status(400).json({ error }));
+        .then(() => res.status(201).json({ message: 'Votre sauce a bien été enregistrée !' }))
+        .catch(error => res.status(400).json({ error }));
 };
 
 //Modifier une sauce (2 façons, selon si la requête est faite avec un fichier ou non)
@@ -51,7 +53,7 @@ exports.modifySauce = (req, res, next) => {
         ...JSON.parse(req.body.sauce),
         //Créer la nouvelle URL de l'image
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    //S'il n'y a pas de fichier de transmis, récupérer l'objet directement dans le corps de la requête
+        //S'il n'y a pas de fichier de transmis, récupérer l'objet directement dans le corps de la requête
     } : { ...req.body };
 
     //Supprimer le userId de la requête (mesure de sécurité)
@@ -60,11 +62,11 @@ exports.modifySauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
         //Vérifier si l'objet correspond bien à l'utilisateur 
         .then((sauce) => {
-            if(sauce.userId != req.auth.userId) {
+            if (sauce.userId != req.auth.userId) {
                 res.status(401).json({ message: 'Non autorisé !' })
             } else {
-                Sauce.updateOne({ _id: req.params.id }, {...sauceObject, _id: req.params.id })
-                    .then(() => res.status(200).json({message : 'Sauce modifiée !'}))
+                Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+                    .then(() => res.status(200).json({ message: 'Sauce modifiée !' }))
                     .catch(error => res.status(400).json({ error }));
             };
         })
@@ -73,7 +75,7 @@ exports.modifySauce = (req, res, next) => {
 
 exports.deleteSauce = (req, res, next) => {
     //Récupérer l'objet en base
-    Sauce.findOne({_id: req.params.id}) 
+    Sauce.findOne({ _id: req.params.id })
         .then(sauce => {
             //Vérifier les droits (si l'utilisateur correspond)
             if (sauce.userId != req.auth.userId) {
@@ -84,7 +86,7 @@ exports.deleteSauce = (req, res, next) => {
                 const filename = sauce.imageUrl.split('/images/')[1];
                 fs.unlink(`images/${filename}`, () => {
                     Sauce.deleteOne({ _id: req.params.id })
-                        .then(() => res.status(200).json({ message: 'Sauce supprimée !'}))
+                        .then(() => res.status(200).json({ message: 'Sauce supprimée !' }))
                         .catch(error => res.status(401).json({ error }));
                 });
             };
@@ -92,6 +94,52 @@ exports.deleteSauce = (req, res, next) => {
         .catch(error => res.status(500).json({ error }))
 };
 
-exports.likeSauce = (req, res, next) => {
-    
-}
+exports.likeSauce = (req, res) => {
+    //Récupérer l'objet en base 
+    Sauce.findOne({ _id: req.params.id })
+        .then(sauce => {
+            //Définir chaque élement de l'objet sauce
+            let like = sauce.likes;
+            let dislike = sauce.dislikes;
+            let usersLiked = sauce.usersLiked;
+            let usersDisliked = sauce.usersDisliked;
+            console.log(req.body);
+            //Conditions pour like et dislike (initialisation à 0 dans createSauce)
+            //Rechercher dans le tableau userDisliked si une réaction dislike existe déjà avec l'utilisateur connecté (userId)
+            if (usersDisliked.find(id => id === req.body.userId)) {
+                //Si l'élément est trouvé, supprimer (enlever 1) aux dislikes
+                dislike -= 1;
+                //Mettre à jour le tableau des dislikes des utilisateurs
+                usersDisliked = usersDisliked.filter(id => id != req.body.userId);
+            // Rechercher dans le tableau userLiked si une réaction dislike existe déjà avec l'utilisateur connecté (userId)
+            } else if (usersLiked.find(id => id === req.body.userId)) {
+                //Si l'élément est trouvé, supprimer (enlever 1) aux likes
+                like -= 1;
+                //Mettre à jour le tableau des dislikes des utilisateurs
+                usersLiked = usersLiked.filter(id => id != req.body.userId);
+            };
+            //Si la requête renvoie un like (1), ajouter 1 aux likes
+            if (req.body.like === 1) {
+                like += 1;
+                //Ajouter l'userId au tableau des userLiked
+                usersLiked.push(req.body.userId);
+            //Si la requête renvoie un dislike (-1), ajouter 1 aux dislikes
+            } else if (req.body.like === -1) {
+                dislike += 1;
+                //Ajouter l'userId au tableau des userDisliked
+                usersDisliked.push(req.body.userId);
+            };
+
+            //Mettre à jour l'objet dans la base de données
+            Sauce.updateOne({ _id: req.params.id },
+                {
+                    likes: like,
+                    dislikes: dislike,
+                    usersLiked: usersLiked,
+                    usersDisliked: usersDisliked
+                })
+                .then(() => res.status(200).json({ message: 'Avis accepté'}))
+                .catch(error => res.status(500).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
+};
