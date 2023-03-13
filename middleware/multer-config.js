@@ -3,9 +3,9 @@ const multer = require('multer');
 
 //Créer un objet qui servira de dictionnaire
 const MIME_TYPES = {
-    '/images/jpg': 'jpg',
-    '/images/jpeg': 'jpeg',
-    '/images/png': 'png'
+    'image/jpg': 'jpg',
+    'image/jpeg': 'jpeg',
+    'image/png': 'png'
 }
 
 //Crée un objet de configuration pour multer
