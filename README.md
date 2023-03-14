@@ -34,3 +34,14 @@ de sécurité actualisés.
 - Express
 - MongoDB 
 - Différents modules et plugins : mongoose, bcrypt, crypto-js, dotenv, email-validator, password validator, jsonwebtoken, multer,
+
+## Précisions des variables d'environnement
+DB_USERNAME= Nom d'utilisateur MongoDB
+DB_PASSWORD= Mot de passe utilisateur MongoDB
+DB_URL= Url de connexion MongoDB
+
+SECRET_TOKEN= xxx
+TOKEN_LIFETIME= Expiration du token 
+
+CRYPTO_MAIL= xxx
+
