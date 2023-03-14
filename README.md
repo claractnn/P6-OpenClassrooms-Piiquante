@@ -1,23 +1,19 @@
 # PROJET 6 OPENCLASSROOMS - PIIQUANTE/HOT TAKES
 
-## CONTEXTE DU PROJET
-
+## Contexte du projet
 Piiquante se dédie à la création de sauces épicées dont les recettes sont gardées secrètes. Pour tirer parti de son succès et générer davantage de buzz, l'entreprise souhaite créer une application web dans laquelle les utilisateurs peuvent ajouter leurs sauces préférées et liker ou disliker les sauces ajoutées par les autres.
 
-#OBJECTIFS
-
+## Objectifs
 Construire une API sécurisée avec des contrôleurs, middlewares, modèles et routes. 
 Les utilisateurs peuvent créer un compte et se connecter avec certaines conditions comme par exemple les spécifités d'autorisation du mot de passe et de l'adresse mail.
 Les utilisateurs doivent pouvoir créer des sauces, les modifier, les supprimer et les liker/disliker.
 
-#COMPÉTENCES ÉVALUÉES
-
+## Compétences évaluées
 - Mettre en œuvre des opérations CRUD de manière sécurisée
 - Implémenter un modèle logique de données conformément à la réglementation
 - Stocker des données de manière sécurisée
 
-#EXIGENCES DE SÉCURITÉ
-
+## Éxigences de sécurité
 - Le mot de passe de l'utilisateur doit être haché.
 - L'authentification doit être renforcée sur toutes les routes sauce requises.
 - Les adresses électroniques dans la base de données sont uniques et un
@@ -32,8 +28,7 @@ de données.
 de sécurité actualisés.
 - Le contenu du dossier images ne doit pas être téléchargé sur GitHub.
 
-#LANGAGES ET TECNOLOGIES UTILISÉS
-
+## Langages et technologies utilisés
 - Javascript
 - Nodejs 
 - Express
