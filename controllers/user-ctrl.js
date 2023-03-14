@@ -7,30 +7,48 @@ const jwt = require('jsonwebtoken');
 //Importer le modèle User
 const User = require('../models/User');
 
+//Importer dotenv pour les variables d'environnement
+const dotenv = require('dotenv');
+dotenv.config();
+
+//Importer cryptojs pour chiffrer le mail
+const cryptojs = require('crypto-js');
+
+//Importer email-validator
+const emailValidator = require('email-validator');
+
 //Créer un compte utilisateur (middleware d'authentification)
-exports.signup = (req, res) => {
+exports.signup = (req, res, next) => {
+    //chiffrer l'email avant de l'envoyer dans base de données (algo HmacSHA256 pour plus de sécurité)
+    const emailCryptoJs = cryptojs.HmacSHA256(req.body.email, process.env.CRYPTO_MAIL).toString();
     //hacher le password, fonction asynchrone
-    bcrypt.hash(req.body.password, 10)
-        .then(hash => {
-            const user = new User({
-                email: req.body.email,
-                password: hash
-            });
-            user.save()
-                .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-                .catch((error) => {
-                    res.status(400).json({ error });
-                    console.log(error);
-                })
-        })
-        .catch(error => res.status(500).json({ error }));
+    if (emailValidator.validate(req.body.email)) {
+        bcrypt.hash(req.body.password, 10)
+            .then(hash => {
+                const user = new User({
+                    email: emailCryptoJs,
+                    password: hash
+                });
+                user.save()
+                    .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+                    .catch((error) => {
+                        res.status(400).json({ error });
+                        console.log(error);
+                    })
+            })
+            .catch(error => res.status(500).json({ error }));
+    } else {
+        res.status(400).json({ error: `Le format de l'adresse email est incorrecte` });
+    }
 };
 
 //Se connecter à son compte utilisateur
 exports.login = (req, res, next) => {
+    //chiffrer l'email avant de l'envoyer dans base de données (algo HmacSHA256 pour plus de sécurité)
+    const emailCryptoJs = cryptojs.HmacSHA256(req.body.email, process.env.CRYPTO_MAIL).toString();
     //Vérifier si un utilisateur existe dans la base de données et si le mdp transmis par le client correspond à l'utilisateur
     //Utiliser la méthode findOne de la classe User et passer un objet qui va servir de filtre (sélecteur)
-    User.findOne({ email: req.body.email })
+    User.findOne({ email: emailCryptoJs })
         //Gérer la promesse retournée par findOne
         //Vérifier si l'utilisateur a été trouvé
         .then(user => {
@@ -48,8 +66,8 @@ exports.login = (req, res, next) => {
                                 //Envoyer une chaîne de caractères encodée grâce à la fonction webtoken
                                 token: jwt.sign( //ici, les données encodées(payload) à l'intérieur du token avec 3 arguments
                                     { userId: user._id }, //créer un objet userId qui sera l'identifiant utilisateur du user pour s'assurer que la requête correspond à ce userId
-                                    'RANDOM_TOKEN_SECRET', //créer la clé secrète pour sécuriser l'encodage
-                                    { expiresIn: '24h' } //appliquer une expiration pour le token
+                                    process.env.SECRET_TOKEN, //créer la clé secrète pour sécuriser l'encodage
+                                    { expiresIn: process.env.TOKEN_LIFETIME } //appliquer une expiration pour le token
                                 )
                             });
                         }
