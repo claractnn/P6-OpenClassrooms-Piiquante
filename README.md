@@ -5,6 +5,7 @@ Piiquante se dédie à la création de sauces épicées dont les recettes sont g
 # OBJECTIFS
 
 Construire une API sécurisée avec des contrôleurs, middlewares, modèles et routes. 
+Les utilisateurs peuvent créer un compte et se connecter avec certaines conditions comme par exemple les spécifités d'autorisation du mot de passe et de l'adresse mail.
 Les utilisateurs doivent pouvoir créer des sauces, les modifier, les supprimer et les liker/disliker.
 
 # COMPÉTENCES ÉVALUÉES
