@@ -24,3 +24,4 @@ module.exports = (req, res, next) => {
         return res.status(400).json({ error: `Le mot de passe doit contenir : entre 6 et 12 caractères et au minimum une lettre en majuscule, une lettre en minuscule, un chiffre et un caractère spécial`})
     };
 };
+
