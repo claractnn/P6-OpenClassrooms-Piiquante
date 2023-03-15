@@ -40,7 +40,7 @@ DB_PASSWORD= Mot de passe utilisateur MongoDB
 DB_URL= Url de connexion MongoDB
 
 SECRET_TOKEN= xxx
-TOKEN_LIFETIME= Expiration du token 
+TOKEN_LIFETIME= Expiration du token
 
 CRYPTO_MAIL= xxx
 
