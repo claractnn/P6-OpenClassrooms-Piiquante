@@ -1,5 +1,5 @@
-//Importer le package HTTP natif de Node
-const http = require('http');
+//Importer le package https natif de Node
+const https = require('https');
 
 //Éxécuter l'application Express sur le serveur node
 const app = require('./app');
@@ -41,7 +41,7 @@ const errorHandler = error => {
 
 //Créer un serveur en passant une fonction avec pour objets requête et réponse en tant qu'arguments
 //Les requests/responses seront traitées dans app.js
-const server = http.createServer(app); 
+const server = https.createServer(app); 
 
 server.on('error', errorHandler);
 server.on('listening', () => {
