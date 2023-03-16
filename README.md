@@ -35,7 +35,7 @@ de sécurité actualisés.
 - Différents modules et plugins : mongoose, bcrypt, crypto-js, dotenv, email-validator, password validator, jsonwebtoken, multer,
 
 ## Précisions des variables d'environnement
-Créer un fichier .env 
+Créer un fichier .env pour déterminer les variables d'environnement
 
 - DB_USERNAME= Nom d'utilisateur MongoDB
 - DB_PASSWORD= Mot de passe utilisateur MongoDB
