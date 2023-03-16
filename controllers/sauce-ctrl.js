@@ -105,29 +105,30 @@ exports.likeSauce = (req, res) => {
             let usersDisliked = sauce.usersDisliked;
             console.log(req.body);
             //Conditions pour like et dislike (initialisation à 0 dans createSauce)
+            //Si la requête renvoie un like (1), ajouter 1 aux likes
+            if (req.body.like === 1) {
+                like += 1;
+                //Ajouter l'userId au tableau des usersLiked
+                usersLiked.push(req.body.userId);
+            //Si la requête renvoie un dislike (-1), ajouter 1 aux dislikes
+            } else if (req.body.like === -1) {
+                dislike += 1;
+                //Ajouter l'userId au tableau des usersDisliked
+                usersDisliked.push(req.body.userId);
+            };
+
             //Rechercher dans le tableau userDisliked si une réaction dislike existe déjà avec l'utilisateur connecté (userId)
             if (usersDisliked.find(id => id === req.body.userId)) {
                 //Si l'élément est trouvé, supprimer (enlever 1) aux dislikes
                 dislike -= 1;
                 //Mettre à jour le tableau des dislikes des utilisateurs
                 usersDisliked = usersDisliked.filter(id => id != req.body.userId);
-            // Rechercher dans le tableau userLiked si une réaction dislike existe déjà avec l'utilisateur connecté (userId)
+            // Rechercher dans le tableau userLiked si une réaction like existe déjà avec l'utilisateur connecté (userId)
             } else if (usersLiked.find(id => id === req.body.userId)) {
                 //Si l'élément est trouvé, supprimer (enlever 1) aux likes
                 like -= 1;
                 //Mettre à jour le tableau des dislikes des utilisateurs
                 usersLiked = usersLiked.filter(id => id != req.body.userId);
-            };
-            //Si la requête renvoie un like (1), ajouter 1 aux likes
-            if (req.body.like === 1) {
-                like += 1;
-                //Ajouter l'userId au tableau des userLiked
-                usersLiked.push(req.body.userId);
-            //Si la requête renvoie un dislike (-1), ajouter 1 aux dislikes
-            } else if (req.body.like === -1) {
-                dislike += 1;
-                //Ajouter l'userId au tableau des userDisliked
-                usersDisliked.push(req.body.userId);
             };
 
             //Mettre à jour l'objet dans la base de données
