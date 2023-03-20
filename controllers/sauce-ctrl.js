@@ -104,9 +104,7 @@ exports.likeSauce = (req, res) => {
             let usersLiked = sauce.usersLiked;
             let usersDisliked = sauce.usersDisliked;
             console.log(req.body);
-            //Conditions pour like et dislike (initialisation à 0 dans createSauce)
             //Rechercher dans le tableau userDisliked si une réaction dislike existe déjà avec l'utilisateur connecté (userId)
-
             const voted = (usersDisliked.find(id => id === req.body.userId)) || (usersLiked.find(id => id === req.body.userId))
 
             //Si la requête renvoie un like (1), ajouter 1 aux likes
