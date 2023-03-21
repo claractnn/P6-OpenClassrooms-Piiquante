@@ -2,8 +2,8 @@
 const jwt = require('jsonwebtoken');
 
 //Importer dotenv
-const dotenv = require('dotenv');
-dotenv.config();
+//const dotenv = require('dotenv');
+//dotenv.config();
 
 //Exporter la fonction qui sera le middleware
 module.exports = (req, res, next) => {
