@@ -28,7 +28,7 @@ const sauceRoutes = require('./routes/sauce-routes');
 app.use(express.json()); // Middleware parsant la requête en objet JS
 app.use(mongoSanitize()); //Middleware contre les injections requête
 //app.use(xss()); //Middfleware activation filtre script intersites
-app.use(helmet()); //Middleware contre les vulnérabilités liées aux en-têtes
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); //Middleware contre les vulnérabilités liées aux en-têtes
 
 // Définition des autorisations CORS
 app.use((req, res, next) => { 
