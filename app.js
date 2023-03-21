@@ -1,3 +1,6 @@
+//Importer dotenv pour les variables d'environnement
+require('dotenv').config();
+
 //Placer l'application express
 const express = require('express')
 
