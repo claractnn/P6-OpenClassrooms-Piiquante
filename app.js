@@ -7,6 +7,10 @@ const express = require('express')
 //Importation mongoose
 const mongoose = require('./db-Connect');
 
+//Importer les plugins pour renforcer la sécurité
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = re quire('xss-clean'); 
+
 //Créer l'application Express
 const app = express();
 const path = require('path'); // Module apportant des méthodes pour retourner des URL
