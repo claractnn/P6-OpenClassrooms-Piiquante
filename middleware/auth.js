@@ -1,10 +1,6 @@
 //Importer le jsonwebtoken
 const jwt = require('jsonwebtoken');
 
-//Importer dotenv
-//const dotenv = require('dotenv');
-//dotenv.config();
-
 //Exporter la fonction qui sera le middleware
 module.exports = (req, res, next) => {
     //Récupérer le token, (mot clé bearer et token) et enlever la première partie
