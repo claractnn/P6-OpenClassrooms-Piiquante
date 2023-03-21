@@ -84,10 +84,15 @@ exports.deleteSauce = (req, res, next) => {
                 //Si c'est le bon utilisateur, supprimer l'objet de la base de données et supprimer l'image du système de fichier
                 //Récupérer l'URL qui est enregistrée et recréer le chemin sur le fs à partir de celle-ci
                 const filename = sauce.imageUrl.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-                    Sauce.deleteOne({ _id: req.params.id })
+                Sauce.deleteOne({ _id: req.params.id })
                         .then(() => res.status(200).json({ message: 'Sauce supprimée !' }))
                         .catch(error => res.status(401).json({ error }));
+                fs.unlink(`images/${filename}`, (error) => {
+                    if(error) {
+                        console.log(error)
+                    } else {
+                        console.log(`L'image a bien été supprimée !`)
+                    }
                 });
             };
         })
