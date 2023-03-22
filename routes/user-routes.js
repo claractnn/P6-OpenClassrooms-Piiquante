@@ -9,7 +9,7 @@ const password = require('../middleware/password-validator')
 router.post('/signup', password, userCtrl.signup);
 router.post('/login', userCtrl.login);
 
-//Exporter le routeur pour l'importer dans le fichier app.js
+//Exporter le routeur 
 module.exports = router;
 
 
