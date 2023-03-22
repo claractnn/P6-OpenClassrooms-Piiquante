@@ -19,6 +19,7 @@ exports.getOneSauce = (req, res) => {
         .catch(error => res.status(404).json({ error }))
 };
 
+//Créer une sauce
 exports.createSauce = (req, res, next) => {
     //Parser l'objet requête car l'objet envoyé dans la requête est sous format json mais en chaîne de caractère
     const sauceObject = JSON.parse(req.body.sauce);
