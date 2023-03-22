@@ -20,7 +20,7 @@ exports.getOneSauce = (req, res) => {
 };
 
 exports.createSauce = (req, res, next) => {
-    //parser l'objet requête car l'objet envoyé dans la requête est sous format json mais en chaîne de caractère
+    //Parser l'objet requête car l'objet envoyé dans la requête est sous format json mais en chaîne de caractère
     const sauceObject = JSON.parse(req.body.sauce);
     //Supprimer le champ _id car l'id de l'objet va être généré automatiquement par la base de données
     delete sauceObject._id;
