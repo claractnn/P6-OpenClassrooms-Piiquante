@@ -11,3 +11,5 @@ router.post('/login', userCtrl.login);
 
 //Exporter le routeur pour l'importer dans le fichier app.js
 module.exports = router;
+
+
