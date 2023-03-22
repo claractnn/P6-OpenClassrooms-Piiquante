@@ -99,7 +99,7 @@ exports.deleteSauce = (req, res, next) => {
         .catch(error => res.status(500).json({ error }))
 };
 
-//Donner son avis sur une sauce
+//Donner son vote sur une sauce
 exports.likeSauce = (req, res) => {
     //Récupérer l'objet en base 
     Sauce.findOne({ _id: req.params.id })
