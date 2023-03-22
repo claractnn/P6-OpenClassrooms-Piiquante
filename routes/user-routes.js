@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-//Configurer le router avec le contrôleur pour associer les fonctions à la route
+//Configurer le router avec le contrôleur et le middleware pour associer les fonctions à la route
 const userCtrl = require('../controllers/user-ctrl');
 const password = require('../middleware/password-validator')
 

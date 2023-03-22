@@ -1,9 +1,7 @@
 //Importer dotenv pour les variables d'environnement
 require('dotenv').config();
-
 //Placer l'application express
 const express = require('express')
-
 //Importation mongoose
 const mongoose = require('./db-Connect');
 
@@ -19,15 +17,11 @@ const path = require('path'); // Module apportant des méthodes pour retourner d
 const userRoutes = require('./routes/user-routes');
 const sauceRoutes = require('./routes/sauce-routes');
 
-//Configurer une réponse simple pour s'assurer que tout fonctionne correctement
-/*app.use((req, res, next) => {
-    res.json({ message: 'Votre requête a bien été reçue' });
-});*/
 
 //Middleware généraux
 app.use(express.json()); // Middleware parsant la requête en objet JS
 app.use(mongoSanitize()); //Middleware contre les injections requête
-//app.use(xss()); //Middfleware activation filtre script intersites
+//app.use(xss()); //Middleware activation filtre script intersites
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); //Middleware contre les vulnérabilités liées aux en-têtes
 
 // Définition des autorisations CORS

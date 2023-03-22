@@ -13,7 +13,7 @@ const cryptojs = require('crypto-js');
 //Importer email-validator
 const emailValidator = require('email-validator');
 
-//Créer un compte utilisateur (middleware d'authentification)
+//Créer un compte utilisateur 
 exports.signup = (req, res, next) => {
     //chiffrer l'email avant de l'envoyer dans base de données (algo HmacSHA256 pour plus de sécurité)
     const emailCryptoJs = cryptojs.HmacSHA256(req.body.email, process.env.CRYPTO_MAIL).toString();
