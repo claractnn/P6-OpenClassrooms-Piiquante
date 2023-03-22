@@ -1,6 +1,7 @@
 //Importer mongoose
 const mongoose = require('mongoose');
 
+//Créer le schéma du modèle sauce
 const sauceSchema = mongoose.Schema({
     userId: { type: String, required: true },
     name: { type: String, required: true },
