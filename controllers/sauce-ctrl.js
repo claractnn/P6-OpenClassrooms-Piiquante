@@ -55,7 +55,6 @@ exports.modifySauce = (req, res, next) => {
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         //S'il n'y a pas de fichier de transmis, récupérer l'objet directement dans le corps de la requête
     } : { ...req.body };
-
     //Supprimer le userId de la requête (mesure de sécurité)
     delete sauceObject._userId;
     //Chercher dans la base de données et récupérer la sauce 
@@ -85,10 +84,10 @@ exports.deleteSauce = (req, res, next) => {
                 //Récupérer l'URL qui est enregistrée et recréer le chemin sur le fs à partir de celle-ci
                 const filename = sauce.imageUrl.split('/images/')[1];
                 Sauce.deleteOne({ _id: req.params.id })
-                        .then(() => res.status(200).json({ message: 'Sauce supprimée !' }))
-                        .catch(error => res.status(401).json({ error }));
+                    .then(() => res.status(200).json({ message: 'Sauce supprimée !' }))
+                    .catch(error => res.status(401).json({ error }));
                 fs.unlink(`images/${filename}`, (error) => {
-                    if(error) {
+                    if (error) {
                         console.log(error)
                     } else {
                         console.log(`L'image a bien été supprimée !`)
