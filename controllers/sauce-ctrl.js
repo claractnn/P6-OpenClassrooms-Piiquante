@@ -110,38 +110,32 @@ exports.likeSauce = (req, res) => {
             let usersLiked = sauce.usersLiked;
             let usersDisliked = sauce.usersDisliked;
             console.log(req.body);
-            //Rechercher dans le tableau userDisliked si une réaction dislike existe déjà avec l'utilisateur connecté (userId)
-            const voted = (usersDisliked.find(id => id === req.body.userId)) || (usersLiked.find(id => id === req.body.userId))
-
-            //Si la requête renvoie un like (1), ajouter 1 aux likes
+            //Créer une variable qui cherche dans le tableau usersDisliked ou usersLiked si une réaction existe déjà avec l'utilisateur connecté (userId)
+            const voted = (usersDisliked.find(id => id === req.body.userId)) || (usersLiked.find(id => id === req.body.userId));
+            //Si la requête renvoie un like (1), ajouter 1 aux likes de l'objet sauce
             if (req.body.like === 1) {
-                //Condition pour vérifier si un like ou dislike existe déjà
-                if (!voted) {
+                if (!voted) {   //Si l'utilisateur n'est pas trouvé (si c'est voted == false)
                     like += 1;
-                    //Ajouter l'userId au tableau des usersLiked
-                    usersLiked.push(req.body.userId);
+                    usersLiked.push(req.body.userId);  //Ajouter l'userId au tableau des usersLiked
                 }
-                //Si la requête renvoie un dislike (-1), ajouter 1 aux dislikes
+            //Si la requête renvoie un dislike (-1), ajouter 1 aux dislikes de l'objet sauce
             } else if (req.body.like === -1) {
-                if (!voted) {
+                if (!voted) {   //Si l'utilisateur n'est pas trouvé (si c'est voted == false)
                     dislike += 1;
-                    //Ajouter l'userId au tableau des usersDisliked
-                    usersDisliked.push(req.body.userId);
+                    usersDisliked.push(req.body.userId);  //Ajouter l'userId au tableau des usersDisliked
                 }
-            } else if (req.body.like === 0) {
+            //Si la requête renvoie un 0 (si l'utilisateur retire son vote)
+            } else if (req.body.like === 0) { 
+                //Vérifier si l'utilisateur a déjà voté (si son id se retrouve dans le tableau usersDisliked))
                 if (usersDisliked.find(id => id === req.body.userId)) {
-                    //Si l'élément est trouvé, supprimer (enlever 1) aux dislikes
-                    dislike -= 1;
-                    //Mettre à jour le tableau des dislikes des utilisateurs
-                    usersDisliked = usersDisliked.filter(id => id != req.body.userId);
-                    // Rechercher dans le tableau userLiked si une réaction like existe déjà avec l'utilisateur connecté (userId)
+                    dislike -= 1;  //Si l'élément est trouvé, supprimer (enlever 1) aux dislikes
+                    usersDisliked = usersDisliked.filter(id => id != req.body.userId);  //Mettre à jour le tableau des dislikes des utilisateurs
+                //Vérifier si l'utilisateur a déjà voté (si son id se retrouve dans le tableau usersliked))
                 } else if (usersLiked.find(id => id === req.body.userId)) {
-                    //Si l'élément est trouvé, supprimer (enlever 1) aux likes
-                    like -= 1;
-                    //Mettre à jour le tableau des dislikes des utilisateurs
-                    usersLiked = usersLiked.filter(id => id != req.body.userId);
+                    like -= 1;  //Si l'élément est trouvé, supprimer (enlever 1) aux likes
+                    usersLiked = usersLiked.filter(id => id != req.body.userId);  //Mettre à jour le tableau des likes des utilisateurs
                 };
-            }
+            };
 
             //Mettre à jour l'objet dans la base de données
             Sauce.updateOne({ _id: req.params.id },
