@@ -85,15 +85,12 @@ exports.deleteSauce = (req, res, next) => {
                 //Récupérer l'URL qui est enregistrée et recréer le chemin sur le fs à partir de celle-ci
                 const filename = sauce.imageUrl.split('/images/')[1];
                 Sauce.deleteOne({ _id: req.params.id })
-                    .then(() => res.status(200).json({ message: 'Sauce supprimée !' }))
+                    .then(() => {
+                        fs.unlink(`images/${filename}`, () => {
+                            res.status(200).json({ message: `L'image a bien été supprimée !` })
+                        });
+                    })
                     .catch(error => res.status(401).json({ error }));
-                fs.unlink(`images/${filename}`, (error) => {
-                    if (error) {
-                        console.log(error)
-                    } else {
-                        console.log(`L'image a bien été supprimée !`)
-                    }
-                });
             };
         })
         .catch(error => res.status(500).json({ error }))
