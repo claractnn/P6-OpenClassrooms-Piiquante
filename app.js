@@ -7,7 +7,6 @@ const mongoose = require('./db-Connect');
 
 //Importer les plugins pour renforcer la sécurité
 const mongoSanitize = require('express-mongo-sanitize');
-//const xss = require('xss-clean');  //inutile car helmet contient déjà un middleware de protection xss (activation du filtre de script intersites)
 const helmet = require('helmet');
 
 //Créer l'application Express
@@ -21,10 +20,9 @@ const sauceRoutes = require('./routes/sauce-routes');
 //Middleware généraux
 app.use(express.json()); // Middleware parsant la requête en objet JS
 app.use(mongoSanitize()); //Middleware contre les injections requête
-//app.use(xss()); //Middleware activation filtre script intersites
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); //Middleware contre les vulnérabilités liées aux en-têtes
 
-// Définition des autorisations CORS
+//Définitions des autorisations CORS
 app.use((req, res, next) => { 
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With, Content, Accept, Content-Type, Authorization');

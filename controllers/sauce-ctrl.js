@@ -25,14 +25,14 @@ exports.createSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
     //Supprimer le champ _id car l'id de l'objet va être généré automatiquement par la base de données
     delete sauceObject._id;
-    //Supprimer le champ userId qui correspond à la personne qui a créé l'objet, (never trust user), utiliser le userId qui vient du token d'authentification car c'est sûr qu'il est valide 
+    //Supprimer le champ userId qui correspond à la personne qui a créé l'objet et utiliser le userId qui vient du token d'authentification
     delete sauceObject.userId;
     //Créer le nouveau objet avec les informations transmises par l'utilisateur sans les champs précédents
     const sauce = new Sauce({
         ...sauceObject,
         //Extraire l'userId de l'objet requête grâce au middleware
         userId: req.auth.userId,
-        //Générer l'url de l'image (car multer transmet seulemennt le nom du fichier)
+        //Générer l'url de l'image (car multer transmet seulement le nom du fichier)
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         //Initialiser les différents paramètres de la sauce ajoutée à 0
         likes: 0,
@@ -73,6 +73,7 @@ exports.modifySauce = (req, res, next) => {
         .catch(error => res.status(400).json({ error }))
 };
 
+//Supprimer une sauce
 exports.deleteSauce = (req, res, next) => {
     //Récupérer l'objet en base
     Sauce.findOne({ _id: req.params.id })
@@ -111,7 +112,7 @@ exports.likeSauce = (req, res) => {
             const voted = (usersDisliked.find(id => id === req.body.userId)) || (usersLiked.find(id => id === req.body.userId));
             //Si la requête renvoie un like (1), ajouter 1 aux likes de l'objet sauce
             if (req.body.like === 1) {
-                if (!voted) {   //Si l'utilisateur n'est pas trouvé (si c'est voted == false)
+                if (!voted) {   //Si l'utilisateur n'est pas trouvé (si voted == false)
                     like += 1;
                     usersLiked.push(req.body.userId);  //Ajouter l'userId au tableau des usersLiked
                 }
@@ -133,7 +134,6 @@ exports.likeSauce = (req, res) => {
                     usersLiked = usersLiked.filter(id => id != req.body.userId);  //Mettre à jour le tableau des likes des utilisateurs
                 };
             };
-
             //Mettre à jour l'objet dans la base de données
             Sauce.updateOne({ _id: req.params.id },
                 {

@@ -25,5 +25,4 @@ const storage = multer.diskStorage({ //Utiliser fonction diskStorage pour l'enre
 });
 
 module.exports = multer({ storage }).single('image');
-console.log(storage);
 
