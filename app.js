@@ -22,7 +22,7 @@ app.use(express.json()); // Middleware parsant la requête en objet JS
 app.use(mongoSanitize()); //Middleware contre les injections requête
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); //Middleware contre les vulnérabilités liées aux en-têtes
 
-//Définitions des autorisations CORS
+// Définition des autorisations CORS
 app.use((req, res, next) => { 
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With, Content, Accept, Content-Type, Authorization');
