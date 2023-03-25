@@ -13,9 +13,9 @@ const helmet = require('helmet');
 const app = express();
 const path = require('path'); // Module apportant des méthodes pour retourner des URL
 
+//Importer les routes user et sauce
 const userRoutes = require('./routes/user-routes');
 const sauceRoutes = require('./routes/sauce-routes');
-
 
 //Middleware généraux
 app.use(express.json()); // Middleware parsant la requête en objet JS
