@@ -27,7 +27,7 @@ exports.createSauce = (req, res, next) => {
     delete sauceObject._id;
     //Supprimer le champ userId qui correspond à la personne qui a créé l'objet, utiliser le userId qui vient du token d'authentification 
     delete sauceObject.userId;
-    //Créer le nouveau objet avec les informations transmises par l'utilisateur sans les champs précédents
+    //Créer le nouvel objet avec les informations transmises par l'utilisateur sans les champs précédents
     const sauce = new Sauce({
         ...sauceObject,
         //Extraire l'userId de l'objet requête grâce au middleware
