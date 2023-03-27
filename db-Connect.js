@@ -1,4 +1,3 @@
-//Importer mongoose
 const mongoose = require('mongoose');
 
 //Connecter la base de données MongoDB et gérer l'erreur
