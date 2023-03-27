@@ -5,7 +5,7 @@ const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
     'image/png': 'png'
-}
+};
 
 //Configurer le chemin et le nom des fichiers entrants vers l'API
 const storage = multer.diskStorage({ 
