@@ -1,26 +1,21 @@
-//Importer dotenv pour les variables d'environnement
 require('dotenv').config();
-//Placer l'application express
 const express = require('express')
-//Importation mongoose
 const mongoose = require('./db-Connect');
 
-//Importer les plugins pour renforcer la sécurité
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 
-//Créer l'application Express
 const app = express();
-const path = require('path'); // Module apportant des méthodes pour retourner des URL
+const path = require('path'); 
 
 //Importer les routes user et sauce
 const userRoutes = require('./routes/user-routes');
 const sauceRoutes = require('./routes/sauce-routes');
 
 //Middleware généraux
-app.use(express.json()); // Middleware parsant la requête en objet JS
-app.use(mongoSanitize()); //Middleware contre les injections requête
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); //Middleware contre les vulnérabilités liées aux en-têtes
+app.use(express.json()); 
+app.use(mongoSanitize()); 
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); 
 
 // Définition des autorisations CORS
 app.use((req, res, next) => { 
