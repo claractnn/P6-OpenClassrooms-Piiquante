@@ -1,4 +1,3 @@
-//Importer mongoose
 const mongoose = require('mongoose');
 
 //Créer le schéma du modèle sauce
