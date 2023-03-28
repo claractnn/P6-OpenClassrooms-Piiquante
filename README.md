@@ -35,14 +35,10 @@ de sécurité actualisés.
 - Différents modules et plugins : mongoose, bcrypt, crypto-js, dotenv, email-validator, password validator, jsonwebtoken, multer,
 
 ## Précisions des variables d'environnement
-Créer un fichier .env pour déterminer les variables d'environnement
+Créer un fichier .env à partir du fichier .env.sample qui permet de préciser les variables d'environnement
 
-- DB_USERNAME= Nom d'utilisateur MongoDB
-- DB_PASSWORD= Mot de passe utilisateur MongoDB
-- DB_URL= Url de connexion MongoDB
-
-- SECRET_TOKEN= xxx
-- TOKEN_LIFETIME= Expiration du token
-
-- CRYPTO_MAIL= xxx
+- DB_URI=Adresse de connexion à la base de données MongoDB
+- SECRET_TOKEN=Clé secrète qui permet de valider le token JWT
+- TOKEN_LIFETIME=Expiration du token (format xxh, exemple: 24h)
+- CRYPTO_MAIL=Clé secrète qui permet de crypter les adresses email
 
