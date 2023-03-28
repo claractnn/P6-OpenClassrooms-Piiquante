@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 //Connecter la base de données MongoDB et gérer l'erreur
-mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}${process.env.DB_URL}`,
+mongoose.connect(`mongodb+srv://${process.env.DB_URI}`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
