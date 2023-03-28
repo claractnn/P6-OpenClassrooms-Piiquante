@@ -34,6 +34,10 @@ de sécurité actualisés.
 - MongoDB 
 - Différents modules et plugins : mongoose, bcrypt, crypto-js, dotenv, email-validator, password validator, jsonwebtoken, multer,
 
+## Installation du projet
+- Téléchargez 'Node.js' si besoin ;
+- Installez les modules avec 'npm install' ;
+- Vous pouvez démarrer le serveur avec 'nodemon server'.
 ## Précisions des variables d'environnement
 Créer un fichier .env à partir du fichier .env.sample qui permet de préciser les variables d'environnement
 
