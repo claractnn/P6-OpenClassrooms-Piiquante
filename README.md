@@ -38,6 +38,7 @@ de sécurité actualisés.
 - Téléchargez 'Node.js' si besoin ;
 - Installez les modules avec 'npm install' ;
 - Vous pouvez démarrer le serveur avec 'nodemon server'.
+- Cloner le repository qui contient le frontend : https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6
 ## Précisions des variables d'environnement
 Créer un fichier .env à partir du fichier .env.sample qui permet de préciser les variables d'environnement
 
