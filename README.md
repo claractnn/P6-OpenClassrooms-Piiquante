@@ -32,7 +32,7 @@ de sécurité actualisés.
 - Nodejs 
 - Express
 - MongoDB 
-- Différents modules et plugins : mongoose, bcrypt, crypto-js, dotenv, email-validator, password validator, jsonwebtoken, multer,
+- Différents modules et plugins : mongoose, bcrypt, crypto-js, dotenv, email-validator, password validator, jsonwebtoken, multer
 
 ## Installation du projet
 - Téléchargez 'Node.js' si besoin ;
